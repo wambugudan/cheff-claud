@@ -107,6 +107,7 @@ body{
     flex-direction: column;
     gap: 10px;
     margin: 10px 50px;
+    padding-bottom:40px;
 }
 
 .fav{
