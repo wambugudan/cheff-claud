@@ -1,14 +1,24 @@
 import { useState } from "react"
 import ClaudRecipe from "./ClaudRecipe"
 import IngridientsList from "./IngridientsList"
+import { getRecipeFromMistral } from "../ai"
+
 
 export default function MainSection(){
     
     const [ingridients, setIngridients] = useState([])
+    const [recipe, setRecipe] = useState("");
+
 
     const ingridientsList = ingridients.map(ingridient => (
         <li key={ingridient}>{ingridient}</li>
     ))
+
+
+    async function getRecipe() {
+        const recipeMarkdown = await getRecipeFromMistral(ingridients)
+        setRecipe(recipeMarkdown)
+    }
 
     // const addIngridient = function (formData){
     //     const newIngridient = formData.get("ingridient")
@@ -22,13 +32,6 @@ export default function MainSection(){
         const newIngridient = formData.get("ingridients")
         setIngridients(prevIngridients => [...prevIngridients, newIngridient])
         document.getElementById("ingridient").value = ""
-    }
-
-    const [isRecipeShown, setIsRecipeShown] = useState(false)
-
-    // Function to toggle show recipe to true or false
-    const showRecipe = function(){
-        setIsRecipeShown(prevRecipeIsShown => !prevRecipeIsShown)
     }
 
 
@@ -57,13 +60,14 @@ export default function MainSection(){
 
                 {/* Dispay generate recipe container based on given condition */}
                 {   
-                    ingridients.length < 4 ? null : <IngridientsList showRecipe = {showRecipe} />
+                    ingridients.length < 4 ? null : <IngridientsList getRecipe = {getRecipe} />
                 }
             </div>
 
             {/* Render recipe based on the set condition */}
 
-            { isRecipeShown && <ClaudRecipe ingridients={ingridientsList}/> }
+            { recipe && <ClaudRecipe recipe = {recipe}
+            /> }
         </>
         
     )

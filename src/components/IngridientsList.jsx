@@ -7,11 +7,11 @@ export default function IngridientsList(props){
                 <h3>Ready for a recipe?</h3>
                 <p>Generate a recipe for your list of ingridients</p>
             </div>
-            <button onClick={ props.showRecipe}>Get a recipe</button>
+            <button onClick={ props.getRecipe}>Get a recipe</button>
         </div>
     )
 }
 
 IngridientsList.propTypes = {
-    showRecipe: PropTypes.func.isRequired,
+    getRecipe: PropTypes.func.isRequired,
 };
