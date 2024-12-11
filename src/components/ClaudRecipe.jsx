@@ -18,6 +18,7 @@ export default function ClaudRecipe(props){
     )
 }
 
+// Explicit declaring props
 ClaudRecipe.propTypes = {
     recipe: PropTypes.array.isRequired,
 };
